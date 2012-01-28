@@ -140,6 +140,15 @@ class CalendarMgr
         void LoadHolidayData();
         void LoadCalendarData();
 
+        Calendar_Event* GetEvent(uint64 eventID)
+        {
+            for (CalendarEventList::const_iterator i = m_eventList.begin(); i != m_eventList.end(); ++i)
+                if ((*i) && (*i)->eventID == eventID)
+                    return (*i);
+
+            return NULL;
+        }
+
         Calendar_Invite* GetInvite(uint64 inviteID)
         {
             for (CalendarInviteList::const_iterator i = m_inviteList.begin(); i != m_inviteList.end(); ++i)
