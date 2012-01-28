@@ -131,6 +131,8 @@ struct Calendar_Invite
 
 typedef std::list<Calendar_Invite*> CalendarInviteList;
 typedef std::list<Calendar_Event*> CalendarEventList;
+typedef UNORDERED_MAP<uint64, Calendar_Invite> CalendarInviteMap;
+typedef UNORDERED_MAP<uint64, Calendar_Event> CalendarEventMap;
 
 class CalendarMgr
 {
@@ -187,7 +189,7 @@ class CalendarMgr
             return &itr->second;
         }*/
 
-        // void AddEvent(CalendarEvent calendar_event, CalendarEvent CalendarEvent) { _eventMap[calendar_event.id] = calendar_event; }
+        // void AddEvent(CalendarEvent calendar_event) { _eventMap[calendar_event.id] = calendar_event; }
         // void RemoveEvent(uint64 eventID) { _eventMap.erase(eventID); }
 
         void AppendInvitesToCalendarPacketForPlayer(WorldPacket &data, Player *player);
@@ -230,7 +232,7 @@ class CalendarMgr
 
         CalendarInviteList m_inviteList;
         CalendarEventList m_eventList;
-
+        CalendarInviteMap m_inviteMap;
     protected:
         uint32 m_HolidayCount;
         uint32 m_CalendaInviteCount;

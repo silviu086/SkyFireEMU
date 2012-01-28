@@ -33,9 +33,9 @@ void CalendarMgr::AppendInvitesToCalendarPacketForPlayer(WorldPacket &data, Play
     size_t p_counter = data.wpos();
     data << uint32(0);
     uint32 counter = 0;
-    for (CalendarInviteMap::iterator itr = _inviteMap.begin(); itr != _inviteMap.end(); ++itr)
+    for (CalendarInviteMap::iterator itr = m_inviteMap.begin(); itr != m_inviteMap.end(); ++itr)
     {
-        CalendarInvite invite = itr->second;
+        Calendar_Invite invite = itr->second;
         //"if (invite.target_guid == GetGUID())" was not correct getGUID was not identified
         if (invite.target_guid)
         {
@@ -58,15 +58,15 @@ void CalendarMgr::AppendEventsToCalendarPacketForPlayer(WorldPacket &data, Playe
     data << uint32(0);
     uint32 counter = 0;
     std::set<uint64> alreadyAdded;
-    for (CalendarInviteMap::iterator itr = _inviteMap.begin(); itr != _inviteMap.end(); ++itr)
+    for (CalendarInviteMap::iterator itr = m_inviteMap.begin(); itr != m_inviteMap.end(); ++itr)
     {
-        CalendarInvite invite = itr->second;
+        Calendar_Invite invite = itr->second;
         //"if (invite.target_guid == getGUID())" was not correct getGUID was not identified
         if (invite.target_guid)
         {
             if (alreadyAdded.find(invite.id) == alreadyAdded.end())
             {
-                CalendarEvent const* calendar_event = GetEvent(invite.id);
+                Calendar_Event const* calendar_event = GetEvent(invite.id);
                 data << uint64(calendar_event->id);                // event ID
                 data << calendar_event->name;                      // event title
                 data << uint32(calendar_event->type);              // event type
