@@ -139,26 +139,28 @@ void WorldSession::HandleCalendarGetCalendar(WorldPacket & /*recv_data*/)
     p_counter = data.wpos();
     counter = 0;
     data << uint32(counter);                           // holiday count
-        //TODO: Fix dbc
-        /*for (uint32 i = 0; i < sHolidaysStore.GetNumRows(); ++i)           // areaflag numbered from 0
+        // todo: fix dbc structs
+        for (uint32 i = 0; i < sHolidaysStore.GetNumRows(); ++i)           // areaflag numbered from 0
         {
-           if (HolidaysEntry const* holidays = sHolidaysStore.LookupEntry(i))
+            if (HolidaysEntry const* holidays = sHolidaysStore.LookupEntry(i))
             {
-                data << holidays->ID;                                    // Unk
-                data << holidays->unk1;                                  // Unk
-                data << holidays->unk2;                                  // Unk
-                data << holidays->unk3;                                  // Unk
-                data << holidays->unk4;                                  // Unk
-                for (uint8 j = 0; j < 26; ++j)
-                    data << holidays->unk10[j];                          // Unk
-                for (uint8 j = 0; j < 10; ++j)
-                    data << holidays->unk36[j];                          // Unk
-                for (uint8 j = 0; j < 10; ++j)
-                    data << holidays->unk46[j];                          // Unk
-                data << holidayName.c_str();                             // holiday name
+                data << holidays->ID;
+                //for (uint8 j = 0; j < 10; ++j)
+                //data << holidays->duration[j];
+                //for (uint8 j = 0; j < 26; ++j)
+                //data << holidays->date[j];
+                //data << holidays->region;
+                //data << holidays->looping;
+                //for (uint8 j = 0; j < 10; ++j)
+                //data << holidays->calendarFlags[j];
+                //data << holidays->holidayNameId;
+                //data << holidays->holidayDescriptionId;
+                //data << holidays->priority;
+                //data << holidays->calendarFilterType;
+                //data << holidays->flags;
                 ++counter;
             }
-        }*/
+        }
 
     data.put<uint32>(p_counter, counter);
     sLog->outDebug(LOG_FILTER_NETWORKIO, ">> Sending calendar");
