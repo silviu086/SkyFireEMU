@@ -40,11 +40,11 @@ void CalendarMgr::AppendInvitesToCalendarPacketForPlayer(WorldPacket &data, Play
         if (invite.target_guid)
         {
             data << uint64(invite.inviteID);                // Invite ID
-            data << uint64(invite.eventID);           // Event ID
-            data << uint8(invite.rank);               // rank
-            data << uint8(0);                         // unk - TODO: Figure out what this is
-            data << uint8(0);                         // unk
-            data.appendPackGUID(invite.creator_guid); // creator's guid
+            data << uint64(invite.eventID);                 // Event ID
+            data << uint8(invite.rank);                     // rank
+            data << uint8(0);                               // unk - TODO: Figure out what this is
+            data << uint8(0);                               // unk
+            data.appendPackGUID(invite.creator_guid);       // creator's guid
             counter++;
         }
     }
@@ -68,12 +68,12 @@ void CalendarMgr::AppendEventsToCalendarPacketForPlayer(WorldPacket &data, Playe
             {
                 Calendar_Event const* calendar_event = GetEvent(invite.inviteID);
                 data << uint64(calendar_event->eventID);                // event ID
-                data << calendar_event->name;                      // event title
-                data << uint32(calendar_event->type);              // event type
-                data << uint32(calendar_event->time);              // event time as time bit field
-                data << uint32(calendar_event->flags);             // event flags
-                data << uint32(calendar_event->dungeonID);         // dungeon ID
-                data.appendPackGUID(calendar_event->creator_guid); // creator guid
+                data << calendar_event->name;                           // event title
+                data << uint32(calendar_event->type);                   // event type
+                data << uint32(calendar_event->time);                   // event time as time bit field
+                data << uint32(calendar_event->flags);                  // event flags
+                data << uint32(calendar_event->dungeonID);              // dungeon ID
+                data.appendPackGUID(calendar_event->creator_guid);      // creator guid
                 alreadyAdded.insert(invite.inviteID);
                 counter++;
             }
