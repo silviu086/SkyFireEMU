@@ -27,7 +27,6 @@
 #include "Opcodes.h"
 #include "Player.h"
 #include "LFGMgr.h"
-#include "my_global.h"
 
 void WorldSession::HandleCalendarGetCalendar(WorldPacket & /*recv_data*/)
 {
@@ -274,17 +273,16 @@ void WorldSession::HandleCalendarAddEvent(WorldPacket& recv_data)
         c_invite->unk2 = 0;
         c_invite->creator_guid = GetPlayer()->GetGUIDLow();
         c_invite->time = time;
-        c_invite->target_guid=targetGuid;
+        c_invite->target_guid = targetGuid;
         c_invite->text = "Nothing";
 
         sCalendarMgr->AddOrUpdateCalendarInvite(*c_invite, true);
     }
     else
     {
-        /*t_invite->status = status;
+        t_invite->status = status;
         t_invite->rank = rank;
-        sCalendarMgr->AddOrUpdateCalendarInvite(*t_invite,false);
-        */
+        sCalendarMgr->AddOrUpdateCalendarInvite(*t_invite, false);
     }
 
     SendCalendarEvent(eventID, true);
@@ -295,8 +293,8 @@ void WorldSession::HandleCalendarUpdateEvent(WorldPacket &recv_data)
     sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: CMSG_CALENDAR_UPDATE_EVENT");
 
     uint64 eventID;
-    std::string Name = "Nothing";
-    std::string Description = "No Description";
+    std::string Name = "";
+    std::string Description = "";
     int8 type;
     int8 unk1;
     uint32 dungeonId = 0;
@@ -353,9 +351,9 @@ void WorldSession::HandleCalendarCopyEvent(WorldPacket &recv_data)
     recv_data.hexlike();
     recv_data.rpos(recv_data.wpos());
 
-    // recv_data >> uint64;
-    // recv_data >> uint64;
-    // recv_data >> uint32;
+    // recv_data >> uint64
+    // recv_data >> uint64
+    // recv_data >> uint32
 }
 
 void WorldSession::HandleCalendarEventInvite(WorldPacket &recv_data)
@@ -405,7 +403,7 @@ void WorldSession::HandleCalendarEventInvite(WorldPacket &recv_data)
     if (!t_invite)
     {
         if (inviteId > 1)
-        inviteId == sCalendarMgr->GenerateNextInviteID();
+        inviteId = sCalendarMgr->GenerateNextInviteID();
         Calendar_Invite *c_invite = new Calendar_Invite;
         c_invite->inviteID = inviteId;
         c_invite->c_eventID = eventId;
@@ -419,6 +417,7 @@ void WorldSession::HandleCalendarEventInvite(WorldPacket &recv_data)
         c_invite->text = name;
 
         sCalendarMgr->AddOrUpdateCalendarInvite(*c_invite, true);
+    }
 }
 
 void WorldSession::HandleCalendarEventRsvp(WorldPacket &recv_data)
@@ -426,9 +425,9 @@ void WorldSession::HandleCalendarEventRsvp(WorldPacket &recv_data)
     sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: CMSG_CALENDAR_EVENT_RSVP");
     recv_data.hexlike();
 
-    recv_data >> uint64
-    recv_data >> uint64
-    recv_data >> uint32
+    // recv_data >> uint64
+    // recv_data >> uint64
+    // recv_data >> uint32
 }
 
 void WorldSession::HandleCalendarEventRemoveInvite(WorldPacket &recv_data)
@@ -454,11 +453,11 @@ void WorldSession::HandleCalendarEventStatus(WorldPacket &recv_data)
     recv_data.hexlike();
     recv_data.rpos(recv_data.wpos());
 
-    recv_data.readPackGUID(guid)
-    recv_data >> uint64
-    recv_data >> uint64
-    recv_data >> uint64
-    recv_data >> uint32
+    // recv_data.readPackGUID(guid)
+    // recv_data >> uint64
+    // recv_data >> uint64
+    // recv_data >> uint64
+    // recv_data >> uint32
 }
 
 void WorldSession::HandleCalendarEventModeratorStatus(WorldPacket &recv_data)
@@ -467,11 +466,11 @@ void WorldSession::HandleCalendarEventModeratorStatus(WorldPacket &recv_data)
     recv_data.hexlike();
     recv_data.rpos(recv_data.wpos());
 
-    recv_data.readPackGUID(guid)
-    recv_data >> uint64
-    recv_data >> uint64
-    recv_data >> uint64
-    recv_data >> uint32
+    // recv_data.readPackGUID(guid)
+    // recv_data >> uint64
+    // vrecv_data >> uint64
+    // recv_data >> uint64
+    // recv_data >> uint32
 }
 
 void WorldSession::HandleCalendarComplain(WorldPacket &recv_data)
@@ -480,9 +479,9 @@ void WorldSession::HandleCalendarComplain(WorldPacket &recv_data)
     recv_data.hexlike();
     recv_data.rpos(recv_data.wpos());
 
-    recv_data >> uint64
-    recv_data >> uint64
-    recv_data >> uint64
+    // recv_data >> uint64
+    // recv_data >> uint64
+    // recv_data >> uint64
 }
 
 void WorldSession::HandleCalendarGetNumPending(WorldPacket &recv_data)
@@ -528,26 +527,26 @@ void WorldSession::SendCalendarEvent(uint64 eventId, bool added)
     p_counter = data.wpos();
     data << uint32(count);
 
-    uint64 guid =32;
+    uint64 guid = 32;
     uint8 unk1 = 0;
     uint8 unk2 = 0;
     uint8 unk3 = 0;
     uint8 unk4 = 0;
     uint32 unk33 = 0;
     uint64 inID = 1;
-    uint8 text =192;
+    uint8 text = 192;
 
     for (uint8 i = 0; i < count; ++i)
-        {
-            data << uint64(guid);                              // invite played guid
-            data << uint8(unk1);                               // unk
-            data << uint8(unk2);                               // status
-            data << uint8(unk3);                               // rank
-            data << uint8(unk4);                               // unk
-            data << uint64(inID);                              // invite ID
-            data << uint32(unk33);                             // unk
-            data << uint8(text);                               // text
-        }
+    {
+        data << uint64(guid);                              // invite played guid
+        data << uint8(unk1);                               // unk
+        data << uint8(unk2);                               // status
+        data << uint8(unk3);                               // rank
+        data << uint8(unk4);                               // unk
+        data << uint64(inID);                              // invite ID
+        data << uint32(unk33);                             // unk
+        data << uint8(text);                               // text
+    }
 
     for (CalendarInviteList::const_iterator itr = sCalendarMgr->m_inviteList.begin(); itr != sCalendarMgr->m_inviteList.end(); ++itr)
     {
