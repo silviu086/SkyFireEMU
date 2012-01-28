@@ -136,16 +136,16 @@ void CalendarMgr::_AddOrUpdateCalendarInvite(Calendar_Invite &c_invite)
     CharacterDatabase.EscapeString(text);
     std::ostringstream os;
         os << "REPLACE INTO calendar_event_invite (inviteID,eventID, rank, status, unk1, unk2, creatorGuid, time, targetGuid, text) VALUES (";
-        os << c_invite.inviteID << ', ';
-        os << c_invite.eventID << ', ';
-        os << int(c_invite.rank) << ', ';
-        os << int(c_invite.status) << ', ';
-        os << int(c_invite.unk1) << ', ';
-        os << int(c_invite.unk2) << ', ';
-        os << c_invite.creator_guid << ', ';
-        os << c_invite.time << ', ';
-        os << c_invite.target_guid << ', ';
-        os << c_invite.text << ')';
+        os << c_invite.inviteID << ", ";
+        os << c_invite.eventID << ", ";
+        os << int(c_invite.rank) << ", ";
+        os << int(c_invite.status) << ", ";
+        os << int(c_invite.unk1) << ", ";
+        os << int(c_invite.unk2) << ", ";
+        os << c_invite.creator_guid << ", ";
+        os << c_invite.time << ", ";
+        os << c_invite.target_guid << ", '";
+        os << c_invite.text << "');";
 
     SQLTransaction trans = CharacterDatabase.BeginTransaction();
     trans->Append(os.str().c_str());
