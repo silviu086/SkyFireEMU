@@ -20,10 +20,11 @@
 #ifndef _CALENDARMGR_H
 #define _CALENDARMGR_H
 
-#include <string>
-#include <ace/Singleton.h>
 #include "Player.h"
 #include "Common.h"
+
+#include <string>
+#include <ace/Singleton.h>
 
 // TODO - Get correct values
 enum CalendarEventType
@@ -125,6 +126,7 @@ struct Calendar_Invite
     uint32 time;
     uint64 target_guid;
     std::string text;
+    uint64 c_eventID;
 };
 
 typedef std::list<Calendar_Invite*> CalendarInviteList;
@@ -137,15 +139,6 @@ class CalendarMgr
     public:
         void LoadHolidayData();
         void LoadCalendarData();
-
-        Calendar_Event* GetEvent(uint64 eventID)
-        {
-            for (CalendarEventList::const_iterator i = m_eventList.begin(); i != m_eventList.end(); ++i)
-                if ((*i) && (*i)->eventID == eventID)
-                    return (*i);
-
-            return NULL;
-        }
 
         Calendar_Invite* GetInvite(uint64 inviteID)
         {
@@ -183,14 +176,14 @@ class CalendarMgr
             if(itr == _eventMap.end())
                 return NULL;
             return &itr->second;
-        }
+        }*/
 
-        void AddEvent(CalendarEvent calendar_event) { _eventMap[calendar_event.id] = calendar_event; }
-        void RemoveEvent(uint64 eventID) { _eventMap.erase(eventID); }
+        // void AddEvent(CalendarEvent calendar_event, CalendarEvent CalendarEvent) { _eventMap[calendar_event.id] = calendar_event; }
+        // void RemoveEvent(uint64 eventID) { _eventMap.erase(eventID); }
 
         void AppendInvitesToCalendarPacketForPlayer(WorldPacket &data, Player *player);
         void AppendEventsToCalendarPacketForPlayer(WorldPacket &data, Player *player);
-        */
+
         bool GetInviteStatus(uint64 playerGuild)
         {
             for (CalendarInviteList::iterator itr = m_inviteList.begin(); itr != m_inviteList.end(); ++itr)
