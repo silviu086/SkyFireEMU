@@ -39,8 +39,8 @@ void CalendarMgr::AppendInvitesToCalendarPacketForPlayer(WorldPacket &data, Play
         //"if (invite.target_guid == GetGUID())" was not correct getGUID was not identified
         if (invite.target_guid)
         {
-            data << uint64(invite.id);                // Invite ID
-            data << uint64(invite.c_event);           // Event ID
+            data << uint64(invite.inviteID);                // Invite ID
+            data << uint64(invite.eventID);           // Event ID
             data << uint8(invite.rank);               // rank
             data << uint8(0);                         // unk - TODO: Figure out what this is
             data << uint8(0);                         // unk
@@ -64,17 +64,17 @@ void CalendarMgr::AppendEventsToCalendarPacketForPlayer(WorldPacket &data, Playe
         //"if (invite.target_guid == getGUID())" was not correct getGUID was not identified
         if (invite.target_guid)
         {
-            if (alreadyAdded.find(invite.id) == alreadyAdded.end())
+            if (alreadyAdded.find(invite.inviteID) == alreadyAdded.end())
             {
-                Calendar_Event const* calendar_event = GetEvent(invite.id);
-                data << uint64(calendar_event->id);                // event ID
+                Calendar_Event const* calendar_event = GetEvent(invite.inviteID);
+                data << uint64(calendar_event->eventID);                // event ID
                 data << calendar_event->name;                      // event title
                 data << uint32(calendar_event->type);              // event type
                 data << uint32(calendar_event->time);              // event time as time bit field
                 data << uint32(calendar_event->flags);             // event flags
                 data << uint32(calendar_event->dungeonID);         // dungeon ID
                 data.appendPackGUID(calendar_event->creator_guid); // creator guid
-                alreadyAdded.insert(invite.id);
+                alreadyAdded.insert(invite.inviteID);
                 counter++;
             }
         }

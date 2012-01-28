@@ -126,7 +126,7 @@ struct Calendar_Invite
     uint32 time;
     uint64 target_guid;
     std::string text;
-    uint64 c_eventID;
+    uint64 c_eventID;  // ok... where'd this come from?
 };
 
 typedef std::list<Calendar_Invite*> CalendarInviteList;
