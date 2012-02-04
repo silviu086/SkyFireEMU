@@ -50,11 +50,11 @@ namespace Pathfinding
     {
         public:
             MapBuilder(float maxWalkableAngle   = 60.f,
-                       bool skipLiquid          = true,
-                       bool skipContinents      = true,
+                       bool skipLiquid          = false,
+                       bool skipContinents      = false,
                        bool skipJunkMaps        = true,
                        bool skipBattlegrounds   = true,
-                       bool hiResHeightmaps     = false,
+                       bool hiResHeightmaps     = true,
                        bool debugOutput         = false);
 
             ~MapBuilder();

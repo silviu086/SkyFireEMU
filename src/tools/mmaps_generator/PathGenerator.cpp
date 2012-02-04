@@ -15,7 +15,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "MMapCommon.h"
+#include "PathCommon.h"
 #include "MapBuilder.h"
 
 using namespace Pathfinding;
@@ -236,10 +236,10 @@ int main(int argc, char** argv)
     float maxAngle = 60.f;
     int tileX = -1, tileY = -1;
     bool skipLiquid = false,
-         skipContinents = true,
+         skipContinents = false,
          skipJunkMaps = true,
-         skipBattlegrounds = true,
-         hiResHeightmaps = false,
+         skipBattlegrounds = false,
+         hiResHeightmaps = true,
          debugOutput = false,
          badParam = false;
 
@@ -262,7 +262,7 @@ int main(int argc, char** argv)
 
     if (mapnum == -1 && debugOutput)
     {
-        printf("You have specifed debug output, but didn't specify a map to generate.\n");
+        printf("You have specified debug output, but didn't specify a map to generate.\n");
         printf("This will generate debug output for ALL maps.\n");
         printf("Are you sure you want to continue? (y/n) ");
         if(getchar() != 'y')

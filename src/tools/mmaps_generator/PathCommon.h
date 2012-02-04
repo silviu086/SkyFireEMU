@@ -42,7 +42,7 @@ namespace Pathfinding
         {
             if(*filter == '*')
             {
-                if(*++filter == '\0')   // wildcard at end of filter means all remaing chars match
+                if(*++filter == '\0')   // wildcard at end of filter means all remaining chars match
                     return true;
 
                 while(true)

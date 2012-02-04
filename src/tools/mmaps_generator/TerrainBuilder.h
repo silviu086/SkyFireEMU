@@ -18,7 +18,7 @@
 #ifndef _MMAP_TERRAIN_BUILDER_H
 #define _MMAP_TERRAIN_BUILDER_H
 
-#include "MMapCommon.h"
+#include "PathCommon.h"
 #include "Map.h"
 
 #include "G3D/Array.h"

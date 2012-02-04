@@ -15,7 +15,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "MMapCommon.h"
+#include "PathCommon.h"
 #include "MapBuilder.h"
 #include "VMapManager2.h"
 #include "MapTree.h"
@@ -72,7 +72,7 @@ namespace Pathfinding
     {
         uint32 i;
         vector<string> files;
-        uint32 mapID, tileX, tileY, tileID, count = 0;;
+        uint32 mapID, tileX, tileY, tileID, count = 0;
         char filter[12];
 
         printf("Discovering maps... ");
